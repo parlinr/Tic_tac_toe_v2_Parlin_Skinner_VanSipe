@@ -43,6 +43,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
         public GameController()
         {
+            
             InitializeGame();
             PlayGame();
         }
@@ -71,8 +72,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             //
             _gameboard.InitializeGameboard();
         }
-
-
+        
         /// <summary>
         /// Game Loop
         /// </summary>
@@ -92,16 +92,36 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                     //
                     ManageGameStateTasks();
 
+
+
+
+                    if (_gameView.CurrentViewState == ConsoleView.ViewState.ViewCurrentStats)
+                    {
+                        _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                        _gameView.DisplayContinuePrompt();
+                    }
+
+
+
+
                     //
                     // Evaluate and update the current game board state
                     //
                     _gameboard.UpdateGameboardState();
+                    if (_gameView.CurrentViewState == ConsoleView.ViewState.ResetCurrentRound)
+                    {
+                        _playingRound = false;
+                    }
                 }
 
                 //
                 // Round Complete: Display the results
                 //
-                _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                //_gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                if (_gameView.CurrentViewState != ConsoleView.ViewState.ResetCurrentRound)
+                {
+                    _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                }
 
                 //
                 // Confirm no major user errors
@@ -112,11 +132,22 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                     //
                     // Prompt user to play another round
                     //
+                    //if (_gameView.DisplayNewRoundPrompt())
+                    //{
+                    //    _gameboard.InitializeGameboard();
+                    //    _gameView.InitializeView();
+                    //    _playingRound = true;
+                    //}
+
                     if (_gameView.DisplayNewRoundPrompt())
                     {
                         _gameboard.InitializeGameboard();
                         _gameView.InitializeView();
                         _playingRound = true;
+                    }
+                    else
+                    {
+                        _playingGame = false;
                     }
                 }
                 //
@@ -200,25 +231,63 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         {
             GameboardPosition gameboardPosition = _gameView.GetPlayerPositionChoice();
 
-            if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts)
+            //if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts)
+            //{
+            //    //
+            //    // player chose an open position on the game board, add it to the game board
+            //    //
+            //    if (_gameboard.GameboardPositionAvailable(gameboardPosition))
+            //    {
+            //        _gameboard.SetPlayerPiece(gameboardPosition, currentPlayerPiece);
+            //    }
+            //    //
+            //    // player chose a taken position on the game board
+            //    //
+            //    else
+            //    {
+            //        _gameView.DisplayGamePositionChoiceNotAvailableScreen();
+            //    }
+            //}
+
+
+            if (_gameView.CurrentViewState == ConsoleView.ViewState.ViewCurrentStats)
             {
-                //
-                // player chose an open position on the game board, add it to the game board
-                //
-                if (_gameboard.GameboardPositionAvailable(gameboardPosition))
+                _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                //_gameView.DisplayContinuePrompt();
+                _gameView.CurrentViewState = ConsoleView.ViewState.Active;
+                _gameView.DisplayGameArea();
+                gameboardPosition = _gameView.GetPlayerPositionChoice();
+            }
+
+
+            if (_gameView.CurrentViewState == ConsoleView.ViewState.ResetCurrentRound)
+            {
+                //If the reset current round option was choosen, subtract one from the number of rounds played.
+                _roundNumber--;
+            }
+            else
+            {
+                //Proceed with turn as normal.
+                if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts)
                 {
-                    _gameboard.SetPlayerPiece(gameboardPosition, currentPlayerPiece);
-                }
-                //
-                // player chose a taken position on the game board
-                //
-                else
-                {
-                    _gameView.DisplayGamePositionChoiceNotAvailableScreen();
+                    //
+                    // player chose an open position on the game board, add it to the game board
+                    //
+                    if (_gameboard.GameboardPositionAvailable(gameboardPosition))
+                    {
+                        _gameboard.SetPlayerPiece(gameboardPosition, currentPlayerPiece);
+                    }
+                    //
+                    // player chose a taken position on the game board
+                    //
+                    else
+                    {
+                        _gameView.DisplayGamePositionChoiceNotAvailableScreen();
+                    }
                 }
             }
         }
-
+        
         #endregion
     }
 }
