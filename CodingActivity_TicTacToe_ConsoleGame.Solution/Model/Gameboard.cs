@@ -89,17 +89,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         {
             _currentRoundState = GameboardState.NewRound;
 
-            //
-            // Set all PlayerPiece array values to "None"
-            //
-            //            for (int row = 0; row < MAX_NUM_OF_ROWS_COLUMNS; row++)
-            //            {
-            //                for (int column = 0; column < MAX_NUM_OF_ROWS_COLUMNS; column++)
-            //                {
-            ////                    _positionState[row, column] = PlayerPiece.None;
-            //                }
-            //            }
-
             for (int xAxis = 0; xAxis < MAX_NUM_OF_ROWS_COLUMNS; xAxis++)
             {
                 for (int yAxis = 0; yAxis < MAX_NUM_OF_ROWS_COLUMNS; yAxis++)
@@ -112,7 +101,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             }
         }
 
-
         /// <summary>
         /// Determine if the game board position is taken
         /// </summary>
@@ -124,8 +112,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             // Confirm that the board position is empty
             // Note: gameboardPosition converted to array index by subtracting 1
             //
-
-            //if (_positionState[gameboardPosition.Row - 1, gameboardPosition.Column - 1] == PlayerPiece.None)
             if (_positionState[gameboardPosition.XAxis - 1, gameboardPosition.YAxis - 1, gameboardPosition.ZAxis - 1] == PlayerPiece.None)
             {
                 return true;
@@ -161,18 +147,25 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             }
         }
         
+        /// <summary>
+        /// Check the game board to see if all spaces are filled and neither player has won.
+        /// </summary>
+        /// <returns></returns>
         public bool IsCatsGame()
         {
             //
             // All positions on board are filled and no winner
             //
-            for (int row = 0; row < 3; row++)
+            for (int z = 0; z < 3; z++)
             {
-                for (int column = 0; column < 3; column++)
+                for (int row = 0; row < 3; row++)
                 {
-                    if (_positionState[row, column, 0] == PlayerPiece.None)
+                    for (int column = 0; column < 3; column++)
                     {
-                        return false;
+                        if (_positionState[row, column, z] == PlayerPiece.None)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -234,10 +227,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return false;
         }
-
-
-
-
+        
         /// <summary>
         /// Check for any three in a row.
         /// </summary>
@@ -292,12 +282,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                     return true;
                 }
             }
-
-
-
-
-
-
+            
             //
             // Check rows across each plane (z axis) of the game board for a player win.
             //
@@ -370,10 +355,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return false;
         }
-
-
-
-
+        
         /// <summary>
         /// Add player's move to the game board.
         /// </summary>
