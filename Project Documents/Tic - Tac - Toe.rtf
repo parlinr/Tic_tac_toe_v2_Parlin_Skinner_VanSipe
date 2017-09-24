@@ -1,0 +1,152 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe2052{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}{\f1\froman\fprq2\fcharset0 Times New Roman;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.15063}{\*\mmathPr\mnaryLim0\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\widctlpar\sl276\slmult1\qr\cf1\f0\fs22 Ben, Ben, Ryan\par
+
+\pard\widctlpar\sl276\slmult1\b User Stories\par
+\b0\par
+-The player will see a splash screen and options to continue or quit upon starting the application.  \par
+\par
+-The player will have access to a persistent menu in the sidebar throughout the game.\par
+\par
+-The player will be able to exit the application at any time after a confirmation message has been displayed.\par
+\par
+
+\pard\widctlpar\sl276\slmult1 -The player will have the option to reset the game board during the game (after a confirmation message).\par
+
+\pard\widctlpar\sl276\slmult1\par
+-The player will see a message across the screen prior to the start of play indicating which player will go first (randomly chosen).\par
+\par
+-The player will select the desired space by entering the point as an ordered triplet.\par
+\par
+-The player will see an error message if they enter a coordinate outside the bounds of the game space.\par
+\par
+-The player will see an error message if they enter an invalid coordinate.\par
+\par
+-The player will see an error message when they try to place their marker on a space that has been already occupied.\par
+\par
+The player will receive feedback at the conclusion of a round regarding the winner of the round or if the round was a draw.\par
+\par
+The player will see a prompt asking if they wish to play another round.\par
+\par
+The player will be able to view win and loss statistics from previous rounds played in the current session through a menu item in the sidebar.\par
+\par
+The player will be able to view win and loss statistics from previous rounds played in previous sessions through a menu item in the sidebar.\par
+\par
+The player will receive a confirmation message that the game statis have been saved after choosing to save the game statistics through a menu item in the sidebar.\par
+\par
+The player will be prompted to return to the main menu after the statistics screen is displayed.\par
+\par
+\b Use Cases\par
+\b0\par
+Use Case 1: Selecting a desired space\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell A new round has been initiated\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 The game will prompt the turn player to enter a coordinate to specify the position on the game board to mark.\par
+{\pntext\f0 2.\tab}The application will validate the input to      ensure:\par
+{\pntext\f0 3.\tab}      3. the coordinates entered are valid numbers.\par
+
+\pard\intbl 
+{\pntext\f0 4.\tab}{\*\pn\pnlvlbody\pnf0\pnindent1080\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li1440\sl240\slmult1\tx1080\tx1440 The desired space is available\par
+{\pntext\f0 5.\tab}The desired space exists\par
+
+\pard\intbl 
+{\pntext\f0 6.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 The game will mark the desired space with the character representing that player\par
+
+\pard\intbl\nowidctlpar\sl240\slmult1       7.   The application will check the gameboard for a player win or a draw.  Feedback will be displayed on screen to the user for either a win or a draw.  The players will then be prompted to either play another game.\cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+Use Case 2: Viewing Historical Statistics\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell A new round is initiated and the sidebar is available\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 When the sidebar is available, either player can press a specified key to view the historical statistics.\par
+{\pntext\f0 2.\tab}The player will press another specified key to return to the previous screen. \cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+
+\pard\widctlpar\sl276\slmult1 Use Case 3: Exiting The Application at the Player's Descretion\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell A new round is initiated and the sidebar is available\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 When the sidebar is available, either player can press a specified key to exit the application.\par
+{\pntext\f0 2.\tab}The player will press another specified key to either confirm they wish to leave the application or return to the game in progress.\cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+\par
+
+\pard\widctlpar\sl276\slmult1 Use Case 4: Reset the Current Round\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell A new round is initiated and the sidebar is available\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 When the sidebar is available, either player can press a specified key to reset the current round of gameplay.\par
+{\pntext\f0 2.\tab}The player will press another specified key to either confirm they wish to reset the current round or return to the game in progress.\cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+\par
+
+\pard\widctlpar\sl276\slmult1 Use Case 5: Player Order Selection\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell A new round is initiated\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 When a new round of the game is initiated a messge will appear on screen displaying which player (X or O) will take the first turn. (randomly choosen)\cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+\par
+
+\pard\widctlpar\sl276\slmult1 Use Case 6: Save Game Statistics to File\par
+\par
+\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Users:\cell All players\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Prerequisites:\cell One or more rounds have been completed and the sidebar is available\cell\row\trowd\trgaph108\trleft-100\trbrdrl\brdrs\brdrw10\brdrbtw\brdrbar \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx4580\clbrdrl\brdrw20\brdrs\brdrcf1\clbrdrt\brdrw20\brdrs\brdrcf1\clbrdrr\brdrw20\brdrs\brdrcf1\clbrdrb\brdrw20\brdrs\brdrcf1 \cellx9260 
+\pard\intbl\nowidctlpar\sl240\slmult1 Events:\cell 
+\pard\intbl 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\nowidctlpar\fi-360\li720\sl240\slmult1\tx360\tx720 When a round of the game has ended the user can press a specified key to displayed on the sidebar menu to save the game statistics generated by gameplay to a file on disk.\par
+{\pntext\f0 2.\tab}A comfirmation message will be displayed on screen that the statistics have been saved.\par
+{\pntext\f0 3.\tab}The user will be prompted to return to the main game screen.\cell\row 
+\pard\widctlpar\sl276\slmult1\par
+\par
+}
+ 

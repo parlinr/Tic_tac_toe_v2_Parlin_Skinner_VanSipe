@@ -1,0 +1,32 @@
+Tic-Tac-Toe Version 2.0 Game
+
+Project Notes
+
+OPENING/INTRO SCREEN 
+
+Tic-Tac-Toe 3D  (Title centered on screen with the text displayed as ascii art)
+
+Welcome to Tic-tac-Toe in 3 dimensions!!
+
+Your mission, should you choose to accept it, is take the challenge of playing a classic game in a whole new way.  With Tic-Tac-Toe 3D Bird Brained International Inc. has taken the original, classic game of Tic-Tac-Toe and added, well, a whole new dimension.  
+
+Press Enter to play or Escape to exit the game.
+
+
+INSTRUCTIONS SCREEN (immediately follows Opening/Intro Screen)
+
+How to play  (Title centered on screen)
+
+The object of the game, as with traditional Tic-tac-Toe, is for one player to get 3 game pieces in a row (across on the X axis, up & down on the Y axis, or forward & back on the Z axis).  
+
+To place a game piece (X or O) on the gameboard enter the coordinates in an X, Y, Z grouping for the empty location on the gameboard you wish to place a game piece (coordinates of 2, 2, 2 for example places a piece in the centermost location of the gameboard).  
+
+At any point in the game an option from the sidebar menu can be entered to do other tasks such as view gameplay statistics, reset the current round of play, and exit the application.
+
+Press Enter to play or Escape to exit the game.
+
+
+
+
+
+

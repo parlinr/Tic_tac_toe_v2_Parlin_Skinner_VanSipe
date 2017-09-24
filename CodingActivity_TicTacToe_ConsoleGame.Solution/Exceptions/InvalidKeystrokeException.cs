@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CodingActivity_TicTacToe_ConsoleGame;
 
 namespace CodingActivity_TicTacToe_ConsoleGame
-{
-    class Program
+{ 
+    public class InvalidKeystrokeException : Exception
     {
-        static void Main(string[] args)
+        public InvalidKeystrokeException(string message) : base(message)
         {
-
-            GameController gameController = new GameController();
 
         }
     }

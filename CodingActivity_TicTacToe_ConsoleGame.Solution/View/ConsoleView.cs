@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
+using System.Windows;
+
 namespace CodingActivity_TicTacToe_ConsoleGame
 {
     public class ConsoleView
@@ -15,7 +17,19 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         {
             Active,
             PlayerTimedOut, // TODO Track player time on task
-            PlayerUsedMaxAttempts
+            PlayerUsedMaxAttempts,
+            ResetCurrentRound,
+            ViewCurrentStats
+        }
+
+        public enum SidebarMenuOptions
+        {
+            ViewTheRules,
+            ResetCurrentRound,
+            ViewGameStats,
+            //SaveGameStats,
+            ExitApplication,
+            None 
         }
 
         #endregion
@@ -24,16 +38,18 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
         private const int GAMEBOARD_VERTICAL_LOCATION = 4;
 
-        private const int POSITIONPROMPT_VERTICAL_LOCATION = 12;
+        private const int POSITIONPROMPT_VERTICAL_LOCATION = 27;  //12;
         private const int POSITIONPROMPT_HORIZONTAL_LOCATION = 3;
 
-        private const int MESSAGEBOX_VERTICAL_LOCATION = 15;
+        private const int MESSAGEBOX_VERTICAL_LOCATION = 30;  //15;
 
         private const int TOP_LEFT_ROW = 3;
         private const int TOP_LEFT_COLUMN = 6;
 
         private Gameboard _gameboard;
         private ViewState _currentViewStat;
+
+        private Dictionary<string, SidebarMenuOptions> SBMenuOptions = new Dictionary<string, SidebarMenuOptions>();
 
         #endregion
 
@@ -66,6 +82,15 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         public void InitializeView()
         {
             _currentViewStat = ViewState.Active;
+
+            //Setup the menu options for the sidebar menu display.
+            if (SBMenuOptions.Count == 0)
+            {
+                SBMenuOptions.Add("V", SidebarMenuOptions.ViewTheRules);
+                SBMenuOptions.Add("R", SidebarMenuOptions.ResetCurrentRound);
+                SBMenuOptions.Add("S", SidebarMenuOptions.ViewGameStats);
+                SBMenuOptions.Add("E", SidebarMenuOptions.ExitApplication);
+            }
 
             InitializeConsole();
         }
@@ -149,8 +174,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             DisplayContinuePrompt();
         }
 
-
-
         /// <summary>
         /// Inform the player that their position choice is not available
         /// </summary>
@@ -170,55 +193,154 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         }
 
         /// <summary>
-        /// display the welcome screen
+        /// Displays the opening screen for the game.
+        /// </summary>
+        public void DisplaySplashScreen()
+        {
+            //Setup the console.
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(0, 10);
+
+            //Display the opening title.
+            string tabSpace = new String(' ', 23);
+            Console.WriteLine(tabSpace + @"  _______          ______               ______              _____ ____ ");
+            Console.WriteLine(tabSpace + @" /_  __(_)____    /_  __/___ ______    /_  __/___  ___     |__  // __ \");
+            Console.WriteLine(tabSpace + @"  / / / / ___/_____/ / / __ `/ ___/_____/ / / __ \/ _ \     /_ </ / / /");
+            Console.WriteLine(tabSpace + @" / / / / /__/_____/ / / /_/ / /__/_____/ / / /_/ /  __/   ___/ / /_/ / ");
+            Console.WriteLine(tabSpace + @"/_/ /_/\___/     /_/  \__,_/\___/     /_/  \____/\___/   /____/_____/  ");
+            Console.WriteLine(tabSpace + @"                                                                       ");
+
+            //Hold the execution of the application until the user presses a key.
+            Console.SetCursorPosition(80, 25);
+            DisplayContinuePrompt();
+        }
+        
+        /// <summary>
+        /// display the welcome message on screen
         /// </summary>
         public void DisplayWelcomeScreen()
         {
-            StringBuilder sb = new StringBuilder();
+            //Variable Declarations.
+            ConsoleKeyInfo keyPressed;
 
+            //Reset the console display.
             ConsoleUtil.HeaderText = "The Tic-tac-toe Game";
             ConsoleUtil.DisplayReset();
+            
+            //Display the welcome message.
+            Console.WriteLine("Tic-Tac-Toe 3D");
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to Tic-tac-Toe in 3 dimensions!!");
+            Console.WriteLine("");
+            Console.WriteLine("Your mission, should you choose to accept it, is take the challenge of playing a classic game in a whole");
+            Console.WriteLine("new way.  With Tic-Tac-Toe 3D Bird Brain International has taken the original, classic game of Tic-");
+            Console.WriteLine("Tac-Toe and added, well, a whole new dimension. ");
+            Console.WriteLine("");
+            Console.WriteLine("Press Enter to play or Escape to exit the game.");
+            
+            //Get the user's response.
+            keyPressed = Console.ReadKey();
+            
+            //Check for the Enter or Escape key .
+            if (keyPressed.Key == ConsoleKey.Escape || keyPressed.Key == ConsoleKey.Enter)
+            {
+                //If the Enter or Escape keys are pressed...
 
-            ConsoleUtil.DisplayMessage("Written by John Velis");
-            ConsoleUtil.DisplayMessage("Northwestern Michigan College");
-            Console.WriteLine();
+                //Take action based on the key pressed.
+                if (keyPressed.Key == ConsoleKey.Escape)
+                {
+                    //If the user pressed the Escape key...
 
-            sb.Clear();
-            sb.AppendFormat("This application is designed to allow two players to play ");
-            sb.AppendFormat("a game of tic-tac-toe. The rules are the standard rules for the ");
-            sb.AppendFormat("game with each player taking a turn.");
-            ConsoleUtil.DisplayMessage(sb.ToString());
-            Console.WriteLine();
+                    //Exit the application.
+                    Environment.Exit(0);
+                }
+            }
+            else
+            {
+                //If the Enter or Escape keys are pressed...
 
-            sb.Clear();
-            sb.AppendFormat("Your first task will be to set up your account details.");
-            ConsoleUtil.DisplayMessage(sb.ToString());
-
-            DisplayContinuePrompt();
+                //Throw an error for an invalid keystroke.
+                throw new InvalidKeystrokeException("Use either the Enter or Escape key.");
+            }
         }
 
         /// <summary>
-        /// display a closing screen when the user quits the application
+        /// Display a closing screen when the user quits the application
         /// </summary>
         public void DisplayClosingScreen()
         {
             ConsoleUtil.HeaderText = "The Tic-tac-toe Game";
             ConsoleUtil.DisplayReset();
 
-            ConsoleUtil.DisplayMessage("Thank you for using The Tic-tac-toe Game.");
+            ConsoleUtil.DisplayMessage("Thank you for playimg Tic-tac-toe 3D by Bird Brain International.");
+            ConsoleUtil.DisplayMessage("Visit www.birdbrain.com for upcoming games.\n\n");
 
             DisplayContinuePrompt();
         }
 
+        /// <summary>
+        /// Displays the game board, sidebar menu, and game status in the console.
+        /// </summary>
         public void DisplayGameArea()
         {
+            //Reset the console.
             ConsoleUtil.HeaderText = "Current Game Board";
             ConsoleUtil.DisplayReset();
+            
+            //Display the menu
+            DisplaySidebarMenu();
 
+            //Display the game board.
             DisplayGameboard();
+
+            //Display the current status of the game at the bottom of the screen.
             DisplayGameStatus();
         }
 
+        /// <summary>
+        /// Display the instructions for the game on the screen.
+        /// </summary>
+        public void DisplayGameInstructions()
+        {
+            Console.WriteLine("How to play ");
+            Console.WriteLine("");
+            Console.WriteLine("The object of the game, as with traditional Tic-tac-Toe, is for one player to get 3 game pieces in a");
+            Console.WriteLine("row (across the X or Y axis, or forward & back on the Z axis).   ");
+            Console.WriteLine("");
+            Console.WriteLine("To place a game piece (X or O) on the gameboard enter the coordinates in an X, Y, Z grouping for the ");
+            Console.WriteLine("empty location on the gameboard you wish to place a game piece (coordinates of 2, 2, 2 for example ");
+            Console.WriteLine("places a piece in the centermost location of the gameboard).  ");
+            Console.WriteLine("");
+            Console.WriteLine("At any point in the game an option from the sidebar menu can be entered to do other tasks such as view");
+            Console.WriteLine("gameplay statistics, reset the current round of play, and exit the application.");
+        }
+        
+        /// <summary>
+        /// Displays the menu on the right-hand side of the screen.
+        /// </summary>
+        public void DisplaySidebarMenu()
+        {
+            //Variable Declarations.
+            int menuColumn = 88;
+            int menuRow = GAMEBOARD_VERTICAL_LOCATION;
+
+            //Display the menu sidbar header.
+            Console.SetCursorPosition(menuColumn, menuRow);
+            Console.WriteLine("     Main Menu      ");
+            menuRow++;
+            Console.SetCursorPosition(menuColumn, menuRow);
+            Console.WriteLine("                    ");
+            menuRow++;
+
+            //Display the menu options.
+            foreach (KeyValuePair<string, SidebarMenuOptions> menuOption in SBMenuOptions)
+            {
+                Console.SetCursorPosition(menuColumn, menuRow);
+                Console.WriteLine($" {menuOption.Key} - {ConsoleUtil.ToLabelFormat(menuOption.Value.ToString())}");
+                menuRow++;
+            }
+        }
+        
         public void DisplayCurrentGameStatus(int roundsPlayed, int playerXWins, int playerOWins, int catsGames)
         {
             ConsoleUtil.HeaderText = "Current Game Status";
@@ -243,7 +365,22 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return DisplayGetYesNoPrompt("Would you like to play another round?");
         }
+        
+        /// <summary>
+        /// Prompts the user to either reset  the current round or not to reset the current round.
+        /// </summary>
+        /// <returns></returns>
+        public bool DisplayResetRoundPrompt()
+        {
+            ConsoleUtil.HeaderText = "Reset Current Round";
+            ConsoleUtil.DisplayReset();
 
+            return DisplayGetYesNoPrompt("Would you like to reset the current round?");
+        }
+        
+        /// <summary>
+        /// Display the current game status at the bottom of the screen.
+        /// </summary>
         public void DisplayGameStatus()
         {
             StringBuilder sb = new StringBuilder();
@@ -287,6 +424,10 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             }
         }
 
+        /// <summary>
+        /// Display a message to the user at the bottom of the screen.
+        /// </summary>
+        /// <param name="message"></param>
         public void DisplayMessageBox(string message)
         {
             string leftMargin = new String(' ', ConsoleConfig.displayHorizontalMargin);
@@ -305,55 +446,117 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         }
 
         /// <summary>
-        /// display the current game board
+        /// Displays the tic-tac-toe 3D game board.
         /// </summary>
         private void DisplayGameboard()
+        {
+            //Display the game board planes.
+            DisplayGameboardPlane(0, 0, 0);
+            DisplayGameboardPlane(30, 7, 1);  
+            DisplayGameboardPlane(50, 15, 2);
+
+            //Display Game board Labels.
+            DisplayGameboardLabels();
+        }
+
+        /// <summary>
+        /// Displays the a single plane of the 3D cube of the tic-tac-toe board.
+        /// </summary>
+        /// <param name="planeName"></param>
+        /// <param name="column"></param>
+        /// <param name="verticalPositionOffset"></param>
+        /// <param name="zAxis"></param>
+        private void DisplayGameboardPlane(int column, int verticalPositionOffset, int zAxis)
         {
             //
             // move cursor below header
             //
-            Console.SetCursorPosition(0, GAMEBOARD_VERTICAL_LOCATION);
+            Console.SetCursorPosition(column, GAMEBOARD_VERTICAL_LOCATION + verticalPositionOffset);
+            
+            //Display the top of the plane.
+            Console.Write("\t\t        |---+---+---|");
 
-            Console.Write("\t\t\t        |---+---+---|\n");
-
+            //
             for (int i = 0; i < 3; i++)
             {
-                Console.Write("\t\t\t        | ");
+                //Fill in the vertical lines to seperate the cells.
+                verticalPositionOffset++;
+                Console.SetCursorPosition(column, GAMEBOARD_VERTICAL_LOCATION + verticalPositionOffset);
+                Console.Write("\t\t        | ");
 
                 for (int j = 0; j < 3; j++)
                 {
-                    if (_gameboard.PositionState[i, j] == Gameboard.PlayerPiece.None)
+                    if (_gameboard.PositionState[i, j, zAxis] == Gameboard.PlayerPiece.None)
                     {
                         Console.Write(" " + " | ");
                     }
                     else
                     {
-                        Console.Write(_gameboard.PositionState[i, j] + " | ");
+                        Console.Write(_gameboard.PositionState[i, j, zAxis] + " | ");
                     }
-
                 }
-
-                Console.Write("\n\t\t\t        |---+---+---|\n");
+                
+                //Display the row divider.
+                verticalPositionOffset++;
+                Console.SetCursorPosition(column, GAMEBOARD_VERTICAL_LOCATION + verticalPositionOffset);
+                Console.Write("\t\t        |---+---+---|");
             }
-
         }
 
+        /// <summary>
+        /// Displays the X, Y, and Z axis labels on the game board.
+        /// </summary>
+        private void DisplayGameboardLabels()
+        {
+            //Variable Declarations.
+            int column = 24;
+
+            //Display the labels for the game board.
+            Console.SetCursorPosition(21, 7);   //X Axis
+            Console.WriteLine("X");
+            Console.SetCursorPosition(30, 12);   //Y Axis
+            Console.WriteLine("Y");
+
+            //Z Axis
+            for (int row = 14; row < 26; row++)
+            {
+                switch (column)
+                {
+                    case 39:
+                        Console.SetCursorPosition(column, row);
+                        Console.WriteLine(@"");
+                        break;
+                    case 42:
+                        Console.SetCursorPosition(column, row);
+                        Console.WriteLine(@"Z");
+                        break;
+                    case 45:
+                        Console.SetCursorPosition(column, row);
+                        Console.WriteLine(@"");
+                        break;
+                    default:
+                        Console.SetCursorPosition(column, row);
+                        Console.WriteLine(@"\");
+                        break;
+                }
+
+                column += 3;
+            }
+        }
+        
         /// <summary>
         /// display prompt for a player's next move
         /// </summary>
         /// <param name="coordinateType"></param>
-        private void DisplayPositionPrompt(string coordinateType)
+        private void DisplayPositionPrompt()  //(string coordinateType)
         {
-            //
-            // Clear line by overwriting with spaces
-            //
             Console.SetCursorPosition(POSITIONPROMPT_HORIZONTAL_LOCATION, POSITIONPROMPT_VERTICAL_LOCATION);
             Console.Write(new String(' ', ConsoleConfig.windowWidth));
             //
             // Write new prompt
             //
             Console.SetCursorPosition(POSITIONPROMPT_HORIZONTAL_LOCATION, POSITIONPROMPT_VERTICAL_LOCATION);
-            Console.Write("Enter " + coordinateType + " number: ");
+            //Console.Write("Enter " + coordinateType + " number: ");
         }
 
         /// <summary>
@@ -369,7 +572,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             while (!validResponse)
             {
-                ConsoleUtil.DisplayReset();
+                //ConsoleUtil.DisplayReset();
 
                 ConsoleUtil.DisplayPromptMessage(promptMessage + "(yes/no)");
                 userResponse = Console.ReadLine();
@@ -404,28 +607,242 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// <returns>GameboardPosition</returns>
         public GameboardPosition GetPlayerPositionChoice()
         {
-            //
-            // Initialize gameboardPosition with -1 values
-            //
-            GameboardPosition gameboardPosition = new GameboardPosition(-1, -1);
+            //Variable Declaratoins.
+            GameboardPosition gameboardPosition = new GameboardPosition(-1, -1, -1);
+            string userInput = "";
+            SidebarMenuOptions menuOptionChoice = SidebarMenuOptions.None;
+            
+            //Validate the coordinates entered by the user.
+            int[] userCoords = { 0, 0, 0 };
 
-            //
-            // Get row number from player.
-            //
-            gameboardPosition.Row = PlayerCoordinateChoice("Row");
-
-            //
-            // Get column number.
-            //
-            if (CurrentViewState != ViewState.PlayerUsedMaxAttempts)
+            do
             {
-                gameboardPosition.Column = PlayerCoordinateChoice("Column");
-            }
+                userInput = GetCoordinates();
+                if (SBMenuOptions.ContainsKey(userInput.ToUpper()) == true)
+                {
+                    //If a menu option was entered...
 
+                    //Display the appropriate screen based on the menu option entered by the user.
+                    menuOptionChoice = SBMenuOptions[userInput.ToUpper()];
+                    switch (menuOptionChoice)
+                    {
+                        case SidebarMenuOptions.ViewTheRules:
+                            //Display the game instructions.
+                            Console.Clear();
+                            DisplayGameInstructions();
+                            Console.WriteLine("");
+                            Console.WriteLine("");
+
+                            //Hold the execution of the application until the user presses a key.
+                            DisplayContinuePrompt();
+
+                            //Redraw the game board.
+                            DisplayGameArea();
+                            break;
+                        case SidebarMenuOptions.ResetCurrentRound:
+                            _gameboard.CurrentRoundState = Gameboard.GameboardState.NewRound;
+                            _currentViewStat = ViewState.ResetCurrentRound;
+                            return gameboardPosition;
+                        case SidebarMenuOptions.ViewGameStats:
+                            _currentViewStat = ViewState.ViewCurrentStats;
+                            return gameboardPosition;
+                            //break;
+                        case SidebarMenuOptions.ExitApplication:
+                            //Ask the user if they want to leave the application.
+                            Console.Clear();
+                            if (DisplayGetYesNoPrompt("Do you wish to exit the application?") == true)
+                            {
+                                //If the user enters yes...
+
+                                //Display the closing screen.
+                                DisplayClosingScreen();
+
+                                //Exit.
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                //If the user enters yes...
+
+                                //Redraw the game board.
+                                DisplayGameArea();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                    userCoords[0] = 0;
+                    userCoords[1] = 0;
+                    userCoords[2] = 0;
+                    continue;
+                }
+                else
+                {
+                    //If a menu option was not entered...
+
+                    //Split up and validate the coordinates entered by the user.
+                    userCoords = SplitCoords(userInput);
+                    if ((userCoords[0] == 0 && userCoords[1] == 0 && userCoords[2] == 0) == true)
+                    {
+                        Console.ReadKey();
+                    }
+                }
+            } while (userCoords[0] == 0 && userCoords[1] == 0 && userCoords[2] == 0);
+
+            //Save the user's position choice.
+            gameboardPosition.XAxis = userCoords[0];
+            gameboardPosition.YAxis = userCoords[1];
+            gameboardPosition.ZAxis = userCoords[2];
+            
+            //Return the user's positon choice.
             return gameboardPosition;
-
         }
 
+        /// <summary>
+        /// Tests the input provided to see if it is a valid int value.
+        /// </summary>
+        /// <returns>bool value: Bool value returned indicates whether or not the input is a valid int value, integer value: A coordinate that is a valid int value</returns>
+        public bool IsIntegerValid(string userInput, int minimumValue, int maximumValue, out int CoordinateChoice)
+        {
+            //Variable Declarations.
+            CoordinateChoice = 0;
+            bool validateRange = false;
+            bool validResponse = false;
+
+            //If the min and max values are not zero, validate the range.
+            //validateRange = (minimumValue != 0 && maximumValue != 0);
+            if (minimumValue == 0 && maximumValue == 0)
+            {
+                //Validate Range...
+                validateRange = false;
+            }
+            else
+            {
+                validateRange = true;
+            }
+
+            //Validate the user's response.
+            //while (!validResponse)
+            //{
+            if (int.TryParse(userInput, out CoordinateChoice))
+            {
+                //The value entered is a valid integer...
+
+                if (validateRange == true)
+                {
+                    //Check to make sure the integer entered is within the specified range...
+
+                    if (CoordinateChoice >= minimumValue && CoordinateChoice <= maximumValue)
+                    {
+                        //The integer entered is within the specified range...
+
+                        validResponse = true;
+                    }
+                    else
+                    {
+                        //The integer entered is not within the specified range...
+
+                        //Display an error message in the Input Box area of the screen.
+                        DisplayPositionPrompt();
+                        Console.Write($"You must enter an integer value between {minimumValue} and {maximumValue}. Press Enter to try again.");
+                    }
+                }
+                else
+                {
+                    //Do not check to make sure the integer entered is within the specified range...
+
+                    validResponse = true;
+                }
+            }
+            else
+            {
+                //Not a valid integer...
+
+                //Display an error message in the Input Box area of the screen.
+                DisplayPositionPrompt();
+                Console.Write($"You must enter a valid integer. Press Enter to try again.");
+            }
+            //}
+
+            return validResponse;
+        }
+
+        /// <summary>
+        /// Gets the x, y, and z coordinates from the user in an ordered group (x, y, z).
+        /// </summary>
+        /// <returns>string value: The string value returned is a ordered group of coordinates for a 3D space.</returns>
+        public string GetCoordinates()
+        {
+            //Variable Declarations.
+            string coordinates = "";
+
+            //Get the coordinates from the user.
+            DisplayPositionPrompt();
+            Console.Write("Enter the coordinates for your space (X, Y, Z): ");
+            coordinates = Console.ReadLine();
+            
+            //Return the coordinates.
+            return coordinates;
+        }
+
+        /// <summary>
+        /// Splits the coordinates provided in the userInput parameter value and validates each coordinate.
+        /// </summary>
+        /// <param name="userinput"></param>
+        /// <returns>int array: The int array contains the valid coordinates provided by the user.  If all elements in the array are 0, one or more coordinates were not valid.</returns>
+        public int[] SplitCoords(string userinput)
+        {
+            //Variable Declarations.
+            int coord = 0;
+            string[] splitCoords;
+            int[] userCoords = { 0, 0, 0 };
+
+            //Check for comma seperation of the coordinates.
+            if (userinput.IndexOf(',') != userinput.LastIndexOf(','))
+            {
+                //If there are commas seperating the coordinates...
+
+                //Split the coordinates entered into an array.
+                splitCoords = userinput.Split(',');
+            }
+            else
+            {
+                //If there are no commas seperating the coordinates...
+
+                //Display an error message and return to the calling method.
+                DisplayPositionPrompt();
+                Console.Write("Your entry was invalid, press Enter to try again!!");
+                return userCoords;
+            }
+
+
+            //Validate the coordinates entered by the user.
+            for (int i = 0; i < splitCoords.Length; i++)
+            {
+                if (IsIntegerValid(splitCoords[i].Trim(), 1, 3, out coord) == true)
+                {
+                    //If the number is valid...
+
+                    //Set the coordinate in the next index in the user coodinates array.
+                    userCoords[i] = coord;
+                }
+                else
+                {
+                    //If the number is not valid...
+
+                    //Reset the user coodinates array and break out of the loop.
+                    userCoords[0] = 0;
+                    userCoords[1] = 0;
+                    userCoords[2] = 0;
+                    break;
+                }
+            }
+
+            //Return the coordinates.
+            return userCoords;
+        }
+        
         /// <summary>
         /// Validate the player's coordinate response for integer and range
         /// </summary>
@@ -439,8 +856,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             while ((numOfPlayerAttempts <= maxNumOfPlayerAttempts))
             {
-                DisplayPositionPrompt(coordinateType);
-
                 if (int.TryParse(Console.ReadLine(), out tempCoordinate))
                 {
                     //
