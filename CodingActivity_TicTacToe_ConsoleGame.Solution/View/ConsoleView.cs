@@ -210,6 +210,9 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             Console.WriteLine(tabSpace + @"/_/ /_/\___/     /_/  \__,_/\___/     /_/  \____/\___/   /____/_____/  ");
             Console.WriteLine(tabSpace + @"                                                                       ");
 
+            //I had to set the window size in order for this to work on my machine. -- R.P.
+            Console.SetWindowSize(100, 25);
+
             //Hold the execution of the application until the user presses a key.
             Console.SetCursorPosition(80, 25);
             DisplayContinuePrompt();
